@@ -1,0 +1,38 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class PaginationExample {
+    private static final int PAGE_SIZE = 5;
+
+    public static void main(String[] args) {
+        List<Integer> dataList = getData(); // Obtener los datos de alguna fuente
+
+        int totalPages = (int) Math.ceil((double) dataList.size() / PAGE_SIZE);
+
+        // Iterar sobre cada página
+        for (int currentPage = 1; currentPage <= totalPages; currentPage++) {
+            System.out.println("Página " + currentPage + ":");
+            List<Integer> currentPageData = getPageData(dataList, currentPage);
+            for (Integer data : currentPageData) {
+                System.out.println(data);
+            }
+            System.out.println("-----");
+        }
+    }
+
+    // Método para obtener los datos (simulado con una lista de números)
+    private static List<Integer> getData() {
+        List<Integer> dataList = new ArrayList<>();
+        for (int i = 1; i <= 20; i++) {
+            dataList.add(i);
+        }
+        return dataList;
+    }
+
+    // Método para obtener los datos de una página específica
+    private static List<Integer> getPageData(List<Integer> dataList, int pageNumber) {
+        int startIndex = (pageNumber - 1) * PAGE_SIZE;
+        int endIndex = Math.min(startIndex + PAGE_SIZE, dataList.size());
+        return dataList.subList(startIndex, endIndex);
+    }
+}
