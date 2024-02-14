@@ -1,33 +1,46 @@
-# Importar la librería necesaria para la paginación
-from math import ceil
+class User:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
 
-# Definir una función para obtener los datos (simulado con una lista de números)
-def get_data():
-    return list(range(1, 21))
+# Función para obtener los datos (simulado con una lista de objetos User)
+def get_users():
+    return [
+        User("Alice", 30),
+        User("Bob", 25),
+        User("Charlie", 35),
+        User("David", 28),
+        User("Emma", 32),
+        User("Frank", 40),
+        User("Grace", 27),
+        User("Hannah", 33),
+        User("Ian", 45),
+        User("Jack", 29)
+    ]
 
-# Definir una función para obtener los datos de una página específica
+# Función para obtener los datos de una página específica
 def get_page_data(data_list, page_number, page_size):
     start_index = (page_number - 1) * page_size
     end_index = min(start_index + page_size, len(data_list))
     return data_list[start_index:end_index]
 
-# Definir una función para mostrar los datos de una página
+# Función para mostrar los datos de una página
 def display_page(data_list, page_number, page_size):
     page_data = get_page_data(data_list, page_number, page_size)
     print("Página", page_number, ":")
-    for item in page_data:
-        print(item)
+    for user in page_data:
+        print("Nombre:", user.name, "- Edad:", user.age)
     print("-----")
 
-# Obtener los datos
-data_list = get_data()
+# Obtener los datos de usuarios
+user_data = get_users()
 
 # Definir el tamaño de página
-page_size = 5
+page_size = 3
 
 # Calcular el número total de páginas
-total_pages = ceil(len(data_list) / page_size)
+total_pages = (len(user_data) + page_size - 1) // page_size
 
 # Mostrar cada página de datos
 for current_page in range(1, total_pages + 1):
-    display_page(data_list, current_page, page_size)
+    display_page(user_data, current_page, page_size)
