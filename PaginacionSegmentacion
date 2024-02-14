@@ -1,38 +1,33 @@
-import java.util.ArrayList;
-import java.util.List;
+# Importar la librería necesaria para la paginación
+from math import ceil
 
-public class PaginationExample {
-    private static final int PAGE_SIZE = 5;
+# Definir una función para obtener los datos (simulado con una lista de números)
+def get_data():
+    return list(range(1, 21))
 
-    public static void main(String[] args) {
-        List<Integer> dataList = getData(); // Obtener los datos de alguna fuente
+# Definir una función para obtener los datos de una página específica
+def get_page_data(data_list, page_number, page_size):
+    start_index = (page_number - 1) * page_size
+    end_index = min(start_index + page_size, len(data_list))
+    return data_list[start_index:end_index]
 
-        int totalPages = (int) Math.ceil((double) dataList.size() / PAGE_SIZE);
+# Definir una función para mostrar los datos de una página
+def display_page(data_list, page_number, page_size):
+    page_data = get_page_data(data_list, page_number, page_size)
+    print("Página", page_number, ":")
+    for item in page_data:
+        print(item)
+    print("-----")
 
-        // Iterar sobre cada página
-        for (int currentPage = 1; currentPage <= totalPages; currentPage++) {
-            System.out.println("Página " + currentPage + ":");
-            List<Integer> currentPageData = getPageData(dataList, currentPage);
-            for (Integer data : currentPageData) {
-                System.out.println(data);
-            }
-            System.out.println("-----");
-        }
-    }
+# Obtener los datos
+data_list = get_data()
 
-    // Método para obtener los datos (simulado con una lista de números)
-    private static List<Integer> getData() {
-        List<Integer> dataList = new ArrayList<>();
-        for (int i = 1; i <= 20; i++) {
-            dataList.add(i);
-        }
-        return dataList;
-    }
+# Definir el tamaño de página
+page_size = 5
 
-    // Método para obtener los datos de una página específica
-    private static List<Integer> getPageData(List<Integer> dataList, int pageNumber) {
-        int startIndex = (pageNumber - 1) * PAGE_SIZE;
-        int endIndex = Math.min(startIndex + PAGE_SIZE, dataList.size());
-        return dataList.subList(startIndex, endIndex);
-    }
-}
+# Calcular el número total de páginas
+total_pages = ceil(len(data_list) / page_size)
+
+# Mostrar cada página de datos
+for current_page in range(1, total_pages + 1):
+    display_page(data_list, current_page, page_size)
